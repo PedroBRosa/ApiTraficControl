@@ -1,10 +1,14 @@
+from datetime import date, timedelta
 from database.models import *
-from database.connection import async_session
+from database.connection import async_session, engine
+from sqlalchemy.ext.asyncio.session import async_session, AsyncSession
+from sqlalchemy.future import select
+from sqlalchemy import delete
 
 
 class ServicesRoad:
     async def register_road(adres,kilometer,reference_point):
-        async with async_session() as session:
+        async with AsyncSession(engine) as session:
             session.add(Road(
             adres=adres,
             kilometer=kilometer,
@@ -15,7 +19,7 @@ class ServicesRoad:
 
 class ServicesCam:
     async def register_cam(token,road_id,traffic_light_distance,road_speed):
-        async with async_session() as session:
+        async with AsyncSession(engine) as session:
             session.add(Cam(
                 token=token,
                 road_id=road_id,
@@ -25,7 +29,7 @@ class ServicesCam:
             await session.commit()
 
 class ServicesTraficLight:
-    async def register_cam(token,road_id,closed,priority):
+    async def register_trafic_light(token,road_id,closed,priority):
         async with async_session() as session:
             session.add(Cam(
                 token=token,

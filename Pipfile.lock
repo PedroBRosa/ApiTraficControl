@@ -288,7 +288,6 @@
             "version": "==4.4.0"
         },
         "uvicorn": {
-            "extras": [],
             "hashes": [
                 "sha256:a4e12017b940247f836bc90b72e725d7dfd0c8ed1c51eb365f5ba30d9f5127d8",
                 "sha256:c3ed1598a5668208723f2bb49336f4509424ad198d6ab2615b7783db58d919fd"

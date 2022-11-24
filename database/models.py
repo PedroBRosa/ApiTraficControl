@@ -10,8 +10,8 @@ class Road(Base):
     adres = Column(String)
     kilometer = Column(String)
     reference_point = Column(String)
-    traffic_light = relationship('Traffic_Light', backref='road')
-    Cam = relationship('Cam', backref='road')
+    # traffic_light = relationship('Traffic_Light', backref='road')
+    # Cam = relationship('Cam', backref='road')
 
 
 
@@ -31,7 +31,7 @@ class Cam(Base):
     road_id = Column(Integer, ForeignKey('road.id'))
     traffic_light_distance = Column(Float)
     road_speed = Column(Integer)
-    traffic_light = relationship('Traffic_Light', backref='cam')
+    # traffic_light = relationship('Traffic_Light', backref='cam')
     
 
 class Service_Cam(Base):
