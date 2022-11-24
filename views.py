@@ -13,7 +13,7 @@ from schemas import (
 from services import (
     ServicesRoad,
     ServicesCam,
-    ServicesTraficLight
+    ServicesLight
 )
 
 road_router = APIRouter(prefix='/road')
@@ -55,7 +55,7 @@ async def cam_register(cam_imput: CamRegisterInput):
 @traffic_light_router.post('/register',description='My description', response_model=StandardOutPut, responses={400: {'model': ErrorOutput}})
 async def traffic_light_register(traffic_light_imput: TraficLightInput):
     try:
-       await ServicesTraficLight.register_traffic_light(
+       await ServicesLight.register_trafic_light(
             token = traffic_light_imput.token,
             road_id = traffic_light_imput.road_id,
             closed = traffic_light_imput.closed,

@@ -28,10 +28,10 @@ class ServicesCam:
             ))
             await session.commit()
 
-class ServicesTraficLight:
+class ServicesLight:
     async def register_trafic_light(token,road_id,closed,priority):
-        async with async_session() as session:
-            session.add(Cam(
+        async with AsyncSession(engine) as session:
+            session.add(Traffic_Light(
                 token=token,
                 road_id=road_id,
                 closed=closed,
