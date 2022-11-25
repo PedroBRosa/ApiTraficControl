@@ -32,7 +32,13 @@ async def road_register(road_imput: RoadRegisterInput):
     except Exception as error:
         raise HTTPException(400, detail=str(error))
 
-
+@road_router.delete('/delete/{road_id}', response_model=StandardOutPut, responses={400: {'model': ErrorOutput}})
+async def road_delete(road_id: int):
+    try:
+       await ServicesRoad.delete_road(road_id)
+       return StandardOutPut(message='Via deletada com sucesso') 
+    except Exception as error:
+        raise HTTPException(400, detail=str(error))
 
 
 @cam_router.post('/register',description='My description', response_model=StandardOutPut, responses={400: {'model': ErrorOutput}})
@@ -49,7 +55,13 @@ async def cam_register(cam_imput: CamRegisterInput):
         raise HTTPException(400, detail=str(error))
 
 
-
+@cam_router.delete('/delete/{cam_id}', response_model=StandardOutPut, responses={400: {'model': ErrorOutput}})
+async def cam_delete(cam_id: int):
+    try:
+       await ServicesCam.delete_cam(cam_id)
+       return StandardOutPut(message='Camera deletada com sucesso') 
+    except Exception as error:
+        raise HTTPException(400, detail=str(error))
 
 
 @traffic_light_router.post('/register',description='My description', response_model=StandardOutPut, responses={400: {'model': ErrorOutput}})
@@ -65,3 +77,10 @@ async def traffic_light_register(traffic_light_imput: TraficLightInput):
     except Exception as error:
         raise HTTPException(400, detail=str(error))
 
+@traffic_light_router.delete('/delete/{trafic_light_id}', response_model=StandardOutPut, responses={400: {'model': ErrorOutput}})
+async def trafic_light_id_delete(trafic_light_id: int):
+    try:
+       await ServicesLight.delete_trafic_light(trafic_light_id)
+       return StandardOutPut(message='Sinal deletado com sucesso') 
+    except Exception as error:
+        raise HTTPException(400, detail=str(error))

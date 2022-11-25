@@ -1,7 +1,7 @@
-from datetime import date, timedelta
+
 from database.models import *
-from database.connection import async_session, engine
-from sqlalchemy.ext.asyncio.session import async_session, AsyncSession
+from database.connection import engine
+from sqlalchemy.ext.asyncio.session import  AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import delete
 
@@ -16,6 +16,10 @@ class ServicesRoad:
             ))
             await session.commit()
 
+    async def delete_road(road_id):
+        async with AsyncSession(engine) as session:
+            await session.execute(delete(Road).where(Road.id==road_id))
+            await session.commit()
 
 class ServicesCam:
     async def register_cam(token,road_id,traffic_light_distance,road_speed):
@@ -28,6 +32,11 @@ class ServicesCam:
             ))
             await session.commit()
 
+    async def delete_cam(cam_id):
+        async with AsyncSession(engine) as session:
+            await session.execute(delete(Cam).where(Cam.id==cam_id))
+            await session.commit()
+
 class ServicesLight:
     async def register_trafic_light(token,road_id,closed,priority):
         async with AsyncSession(engine) as session:
@@ -37,4 +46,9 @@ class ServicesLight:
                 closed=closed,
                 priority=priority
             ))
+            await session.commit()
+
+    async def delete_trafic_light(trafic_light_id):
+        async with AsyncSession(engine) as session:
+            await session.execute(delete(Traffic_Light).where(Traffic_Light.id==trafic_light_id))
             await session.commit()

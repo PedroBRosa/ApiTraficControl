@@ -14,16 +14,6 @@ class Road(Base):
     # Cam = relationship('Cam', backref='road')
 
 
-
-class Traffic_Light(Base):
-    __tablename__='traffic_light'
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    token = Column(String (10))
-    road_id = Column(Integer, ForeignKey('road.id'))
-    closed = Column(Boolean)
-    priority = Column(Integer)
-
-
 class Cam(Base):
     __tablename__='cam'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -32,14 +22,23 @@ class Cam(Base):
     traffic_light_distance = Column(Float)
     road_speed = Column(Integer)
     # traffic_light = relationship('Traffic_Light', backref='cam')
-    
+
+class Traffic_Light(Base):
+    __tablename__='traffic_light'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    token = Column(String (10))
+    road_id = Column(Integer, ForeignKey('road.id'))
+    cam_id = Column(Integer, ForeignKey('cam.id'))
+    closed = Column(Boolean)
+    priority = Column(Integer)
+
 
 class Service_Cam(Base):
     __tablename__='service_cam'
     id = Column(Integer, primary_key=True, autoincrement=True)
     cam_id = Column(Integer, ForeignKey('cam.id'))
     vehicle_count = (Integer)
-    # time_to_open = (Float)
+    
 
 
 class Order_Service_Cam(Base):
@@ -47,10 +46,12 @@ class Order_Service_Cam(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     reset = Column(Boolean)
     cam_id = Column(Integer, ForeignKey('cam.id'))
+    
 
 
 class Order_Service_Traffic_Light(Base):
     __tablename__='orders_service_traffic_light'
     id = Column(Integer, primary_key=True, autoincrement=True)
     time_to_open = (Float)
-   
+    traffic_light_id = Column(Integer, ForeignKey('traffic_light.id'))
+    
