@@ -84,3 +84,4 @@ async def trafic_light_id_delete(trafic_light_id: int):
        return StandardOutPut(message='Sinal deletado com sucesso') 
     except Exception as error:
         raise HTTPException(400, detail=str(error))
+    #
